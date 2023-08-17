@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import "reflect-metadata";
 
 export interface IExceptionFilter {
     catch: (

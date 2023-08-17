@@ -13,6 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
     "tslog": "^4.9.1"
   },
   "devDependencies": {
