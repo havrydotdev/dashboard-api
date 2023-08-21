@@ -34,6 +34,10 @@ export class UserService implements IUserService {
 
 	async validateUser(dto: UserLoginDto): Promise<boolean> {
 		const userFromDb = await this.usersRepository.find(dto.email);
+		if (!userFromDb) {
+			return false;
+		}
+
 		return compare(dto.password, userFromDb!.password);
 	}
 

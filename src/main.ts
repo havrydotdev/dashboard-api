@@ -15,6 +15,11 @@ import { PrismaService } from './database/prisma.service';
 import { UsersRepository } from './users/users.repository';
 import { IUsersRepository } from './users/users.repository.interface';
 
+interface IBootstrapReturn {
+	app: App;
+	appContainer: Container;
+}
+
 // create bindings
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 	// bind services to their interfaces
@@ -29,7 +34,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
 });
 
 // load bindings to container instance
-function bootstrap(): { app: App; appContainer: Container } {
+async function bootstrap(): Promise<IBootstrapReturn> {
 	const appContainer = new Container();
 	appContainer.load(appBindings);
 	const app = appContainer.get<App>(TYPES.Application);
@@ -37,4 +42,4 @@ function bootstrap(): { app: App; appContainer: Container } {
 	return { app, appContainer };
 }
 
-export const { app, appContainer } = bootstrap();
+export const boot = bootstrap();
