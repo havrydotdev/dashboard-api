@@ -28,7 +28,8 @@ export class UserController extends BaseController implements IUserController {
 				func: this.register,
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
-			{ path: '/login', method: 'post', func: this.login },
+			{ path: '/login', method: 'post', func: this.login, middlewares: [] },
+			{ path: '/info', method: 'get', func: this.info, middlewares: [] },
 		]);
 	}
 
@@ -49,6 +50,14 @@ export class UserController extends BaseController implements IUserController {
 		}>(res, {
 			token,
 		});
+	}
+
+	async info(
+		{ user }: Request<{}, {}, UserLoginDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		this.ok(res, { email: user });
 	}
 
 	async register(
